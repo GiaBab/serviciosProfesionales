@@ -5,9 +5,12 @@ import universidad.*
 
 class ProfesionalAsociado {
 	var universidad
+	var cobro = 0
 	
 	method universidad() = universidad 
 	method universidad(univ) { universidad = univ }
+	method recivirCobro(cantidad){ cobro = cobro + cantidad/2}
+	method cobro()= cobro
 	
 	method provinciasDondePuedeTrabajar() = #{"Entre Ríos", "Corrientes", "Santa Fe"} 
 	
