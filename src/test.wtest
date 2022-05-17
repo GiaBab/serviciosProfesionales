@@ -13,9 +13,9 @@ describe "primeros test" {
 	const melina = new ProfesionalAsociado(universidad = corrientes)
 	const rocio = new ProfesionalLibre(universidad = hurlingham, horarios = 5000, provincias = #{"Santa fe", "Córdoba", "Buenos Aires"})
 	const luciana = new ProfesionalLibre(universidad = rosario, horarios = 3200, provincias = #{"Santa fe", "Entre Rios"})
-	
+	// empresa
 	const empresa1 = new Empresas(honorario = 3500)
-	
+	// contratar
 	method contratar(){
 		empresa1.nuevoEmpleado(juana)
 		empresa1.nuevoEmpleado(melina)
@@ -38,7 +38,26 @@ describe "primeros test" {
 	
 	test "empresa1 universidad formadas"{
 		self.contratar()
-		assert.equals([rosario, corrientes, hurlingham], empresa1.universidadesFormadora())
+		assert.equals(#{rosario, corrientes, hurlingham}, empresa1.universidadesFormadora())
 	}
 	
+	test "empresa1 empleado mas barato"{
+		self.contratar()
+		assert.equals(juana, empresa1.profesionalMasBarato())
+	}
+
+	test "empresa1 es de gente acortada"{
+		self.contratar()
+		assert.that(empresa1.genteAcotada())
+	}
+	/*  
+	test "empresa1 no es de gente acortada"{
+		self.contratar()
+		luciana.provincias.add("Santa fe", "Entre Rios","Corrientes", "Misiones")
+		assert.notThat(empresa1.genteAcotada())
+	}
+	*/
+	
 }
+
+
