@@ -1,0 +1,44 @@
+import profesionales.*
+import universidad.*
+import empresas.*
+
+describe "primeros test" {
+	// universidades
+	const sanMartin = new Universidad(provincia = "Buenos Aires", horarios = 3500)
+	const rosario = new Universidad(provincia = "Santa fe", horarios = 2800)
+	const corrientes = new Universidad(provincia = "corrientes", horarios = 4200)
+	const hurlingham = new Universidad(provincia = "Buenos Aires", horarios = 8800)
+	// empleados
+	const juana = new ProfesionalVinculado(universidad = rosario)
+	const melina = new ProfesionalAsociado(universidad = corrientes)
+	const rocio = new ProfesionalLibre(universidad = hurlingham, horarios = 5000, provincias = #{"Santa fe", "Córdoba", "Buenos Aires"})
+	const luciana = new ProfesionalLibre(universidad = rosario, horarios = 3200, provincias = #{"Santa fe", "Entre Rios"})
+	
+	const empresa1 = new Empresas(honorario = 3500)
+	
+	method contratar(){
+		empresa1.nuevoEmpleado(juana)
+		empresa1.nuevoEmpleado(melina)
+		empresa1.nuevoEmpleado(rocio)
+		empresa1.nuevoEmpleado(luciana)
+	}
+	
+	test "empresa1 cuantos estudiaron en esas universidades" {
+		self.contratar()
+		assert.equals(2, empresa1.estudiaronEn(rosario))
+		assert.equals(1, empresa1.estudiaronEn(corrientes))
+		assert.equals(0, empresa1.estudiaronEn(sanMartin))
+		assert.equals(1, empresa1.estudiaronEn(hurlingham))
+	}
+	
+	test "empresa1 el emplreado mas caro"{
+		self.contratar()
+		assert.equals([rocio], empresa1.profesionalCaro())
+	}
+	
+	test "empresa1 universidad formadas"{
+		self.contratar()
+		assert.equals([rosario, corrientes, hurlingham], empresa1.universidadesFormadora())
+	}
+	
+}
